@@ -1,7 +1,7 @@
 import logoImg from "../assets/logo.jpg";
-import CartButton from "./CartButton.jsx";
+import CartButton from "./Cart/CartButton.jsx";
 import { useRef } from "react";
-import CartModal from "./CartModal.jsx";
+import CartModal from "./Cart/CartModal.jsx";
 
 export default function Header() {
   const cartModalRef = useRef();

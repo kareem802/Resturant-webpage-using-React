@@ -1,30 +1,22 @@
-import { useImperativeHandle, useRef } from "react";
+import { useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
+import { useModal } from "../context/ModalContext.jsx";
 
-export default function Modal({ ref, children, submitButtonText }) {
-  const dialogRef = useRef();
+export default function Modal({ isOpen, children, modalTitle }) {
+  const ModalRef = useRef();
+  useEffect(() => {
+    if (isOpen) {
+      ModalRef.current.showModal();
+    } else {
+      ModalRef.current.close();
+    }
+  }, [isOpen]);
 
-  useImperativeHandle(ref, () => {
-    return {
-      openModal() {
-        dialogRef.current.showModal();
-      },
-      closeModal() {
-        dialogRef.current.close();
-      },
-    };
-  });
   return createPortal(
-    <dialog ref={dialogRef} className="modal">
-      {children}
-      <div className="modal-actions">
-        <button
-          className="text-button"
-          onClick={() => dialogRef.current.close()}
-        >
-          Close
-        </button>
-        <button className="button">{submitButtonText}</button>
+    <dialog ref={ModalRef} className="modal">
+      <div className="cart">
+        <h2>{modalTitle}</h2>
+        {children}
       </div>
     </dialog>,
     document.body,

@@ -1,12 +1,12 @@
 import { useEffect } from "react";
+import { fetchMeals } from "../util/fetchFunctions";
 
 export default function useFetch({ setMealsData }) {
   useEffect(() => {
-    const fetchMeals = async () => {
-      const response = await fetch("http://localhost:3000/meals");
-      if (!response.ok) return;
+    async function loadMeals() {
+      response = await fetchMeals();
       setMealsData(await response.json());
-    };
-    fetchMeals();
+    }
+    loadMeals();
   }, []);
 }

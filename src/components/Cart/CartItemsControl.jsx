@@ -1,9 +1,12 @@
-export default function CartItemsControl({ timesOrdered }) {
+import { useCart } from "../../context/CartContext";
+
+export default function CartItemsControl({ order }) {
+  const { addOrder, removeOrder } = useCart();
   return (
     <div className="cart-item-actions">
-      <button>-</button>
-      <p>{timesOrdered}</p>
-      <button>+</button>
+      <button onClick={() => removeOrder(order.id)}>-</button>
+      <p>{order.timesOrdered}</p>
+      <button onClick={() => addOrder(order)}>+</button>
     </div>
   );
 }

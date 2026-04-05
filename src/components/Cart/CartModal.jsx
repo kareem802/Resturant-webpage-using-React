@@ -1,24 +1,41 @@
 import Modal from "../Modal.jsx";
 import CartItemsControl from "./CartItemsControl.jsx";
 import MealText from "./MealText.jsx";
+import { useCart } from "../../context/CartContext.jsx";
+import { useModal } from "../../context/ModalContext.jsx";
 
-export default function CartModal({ ref }) {
-  const dummyData = { name: "Seafood Pallea", price: 19.99, timesOrdered: 2 };
+export default function CartModal() {
+  const { selectedOrders, totalPrice } = useCart();
+  const { openModal, closeModal, activeModal } = useModal();
   return (
-    <Modal ref={ref} submitButtonText="Go to Checkout">
-      <div className="cart">
-        <h2>Your Cart</h2>
-        <ul>
-          <li className="cart-item">
-            <MealText
-              mealName={dummyData.name}
-              numberOfTimesOrdered={dummyData.timesOrdered}
-              price={dummyData.price}
-            />
-            <CartItemsControl timesOrdered={dummyData.timesOrdered} />
-          </li>
-        </ul>
-        <p className="cart-total">$99.99</p>
+    <Modal isOpen={activeModal === "cart"} modalTitle="Your Cart">
+      <ul>
+        {selectedOrders.map((order) => {
+          return (
+            <li className="cart-item" key={order.id}>
+              <MealText
+                mealName={order.name}
+                numberOfTimesOrdered={order.timesOrdered}
+                price={order.price}
+              />
+              <CartItemsControl order={order} />
+            </li>
+          );
+        })}
+      </ul>
+      <p className="cart-total">${totalPrice}</p>
+      <div className="modal-actions">
+        <button className="text-button" onClick={closeModal}>
+          Close
+        </button>
+        <button
+          className="button"
+          onClick={() => {
+            openModal("checkout");
+          }}
+        >
+          Go to Checkout
+        </button>
       </div>
     </Modal>
   );

@@ -1,3 +1,10 @@
+import { useCart } from "../../context/CartContext";
+
 export default function CartButton({ ...props }) {
-  return <button {...props}>Cart</button>;
+  const { numberOfOrders } = useCart();
+  return (
+    <button {...props}>
+      Cart {numberOfOrders !== 0 && `(${numberOfOrders})`}
+    </button>
+  );
 }

@@ -1,18 +1,20 @@
 import logoImg from "../assets/logo.jpg";
 import CartButton from "./Cart/CartButton.jsx";
-import { useRef } from "react";
+import { useModal } from "../context/ModalContext.jsx";
 import CartModal from "./Cart/CartModal.jsx";
+import CheckoutModal from "./Cart/CheckoutModal.jsx";
 
 export default function Header() {
-  const cartModalRef = useRef();
+  const { openModal } = useModal();
   return (
     <div id="main-header">
       <div id="title">
         <img src={logoImg} />
         <h1>reactfood</h1>
       </div>
-      <CartButton onClick={() => cartModalRef.current.openModal()} />
-      <CartModal ref={cartModalRef} />
+      <CartButton onClick={() => openModal("cart")} />
+      <CartModal />
+      <CheckoutModal />
     </div>
   );
 }

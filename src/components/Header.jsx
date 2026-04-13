@@ -3,6 +3,7 @@ import CartButton from "./Cart/CartButton.jsx";
 import { useModal } from "../context/ModalContext.jsx";
 import CartModal from "./Cart/CartModal.jsx";
 import CheckoutModal from "./Cart/CheckoutModal.jsx";
+import SuccessModal from "./Cart/SuccessModal.jsx";
 
 export default function Header() {
   const { openModal } = useModal();
@@ -15,6 +16,7 @@ export default function Header() {
       <CartButton onClick={() => openModal("cart")} />
       <CartModal />
       <CheckoutModal />
+      <SuccessModal />
     </div>
   );
 }

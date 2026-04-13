@@ -4,15 +4,17 @@ export const fetchMeals = async () => {
   return response;
 };
 
-export const fetchOrders = async (orders, credintials) => {
+export const fetchOrders = async (orders, credentials) => {
   const orderData = {
-    items: orders,
-    customer: {
-      name: credintials.fullName,
-      email: credintials.email,
-      street: credintials.street,
-      "postal-code": credintials.postalCode,
-      city: credintials.city,
+    order: {
+      items: orders,
+      customer: {
+        name: credentials.name,
+        email: credentials.email,
+        street: credentials.street,
+        "postal-code": credentials.postalCode,
+        city: credentials.city,
+      },
     },
   };
   const response = await fetch("http://localhost:3000/orders", {

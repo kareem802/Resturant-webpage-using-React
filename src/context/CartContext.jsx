@@ -4,8 +4,8 @@ const CartContext = createContext({
   selectedOrders: [],
   totalPrice: 0,
   numberOfOrders: 0,
-  addOrder: () => {},
-  removeOrder: () => {},
+  addOrder: (orderData) => {},
+  removeOrder: (id) => {},
 });
 
 export function CartProvider({ children }) {

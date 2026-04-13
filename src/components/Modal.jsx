@@ -4,6 +4,7 @@ import { useModal } from "../context/ModalContext.jsx";
 
 export default function Modal({ isOpen, children, modalTitle }) {
   const ModalRef = useRef();
+  const { closeModal } = useModal();
   useEffect(() => {
     if (isOpen) {
       ModalRef.current.showModal();
@@ -11,6 +12,13 @@ export default function Modal({ isOpen, children, modalTitle }) {
       ModalRef.current.close();
     }
   }, [isOpen]);
+
+  useEffect(() => {
+    const dialogRef = ModalRef.current;
+    const handleCancel = () => closeModal(); // sync context when escape is pressed
+    dialogRef.addEventListener("cancel", handleCancel);
+    return () => dialogRef.removeEventListener("cancel", handleCancel);
+  }, [closeModal]);
 
   return createPortal(
     <dialog ref={ModalRef} className="modal">
